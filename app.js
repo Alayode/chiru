@@ -25,6 +25,13 @@ angular.module('MyApp', ['ngResource','ngRoute'])
                   templateUrl: "views/home.html",
                   controller: "MainCtrl"
                 })
+                .when('/login',{
+                  templateUrl: "views/login.html",
+                  controller: "LoginCtrl"
+                })
+                .otherwise({
+                  redirectsTo:"/"
+                });
               //console.log($route)
 
 })
