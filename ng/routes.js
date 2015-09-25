@@ -31,6 +31,10 @@ angular.module('MyApp', ['ngResource','ngRoute'])
                   templateUrl: "views/add.html",
                   controller: "AddCtrl"
                 })
+                .when('/signup',{
+                  templateUrl: "views/signup.html",
+                  controller: "SignupCtrl"
+                })
                 .otherwise({
                   redirectsTo:"/"
                 });
