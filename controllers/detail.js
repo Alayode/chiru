@@ -1,3 +1,9 @@
+// angular.module('MyApp')
+//  .controller('DetailCtrl',['$scope',function($scope){
+//   $scope.header = { message: 'Detail Page' };
+// }]);
+
+
 angular.module('MyApp')
     .controller('DetailCtrl', ['$scope', '$rootScope', '$routeParams', 'Show', 'Subscription',
         function($scope, $rootScope, $routeParams, Show, Subscription) {
