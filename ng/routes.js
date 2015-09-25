@@ -3,7 +3,7 @@ Chris Samuel
 ksamuel.chris@gmail.com
 September 24, 2015
 
-Changing Views with Routes and $location
+Changing layouts with Routes and $location
 
 Though AJAX apps are technically single-page apps (in the sense that they only load an HTML page on
 the first request, and then just update areas within the DOM thereafter), we usually have multiple
@@ -20,23 +20,23 @@ sub page vies that we show or hide from the user, as appropriate.
 angular.module('MyApp', ['ngResource','ngRoute'])
               .config(function($routeProvider) {
                 $routeProvider.when('/',{
-                  templateUrl: "views/home.html",
+                  templateUrl: "layouts/home.html",
                   controller: "MainCtrl"
                 })
                 .when('/login',{
-                  templateUrl: "views/login.html",
+                  templateUrl: "layouts/login.html",
                   controller: "LoginCtrl"
                 })
                 .when('/add',{
-                  templateUrl: "views/add.html",
+                  templateUrl: "layouts/add.html",
                   controller: "AddCtrl"
                 })
                 .when('/signup',{
-                  templateUrl: "views/signup.html",
+                  templateUrl: "layouts/signup.html",
                   controller: "SignupCtrl"
                 })
                 .when('/detail',{
-                  templateUrl: "views/detail.html",
+                  templateUrl: "layouts/detail.html",
                   controller: "DetailCtrl"
                 })
                 .otherwise({
