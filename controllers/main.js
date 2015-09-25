@@ -28,5 +28,5 @@
 
 angular.module('MyApp')
  .controller('MainCtrl',['$scope',function($scope){
-  $scope.header = { title: 'Home Page' };
+  $scope.header = { message: 'Home Page' };
 }]);
