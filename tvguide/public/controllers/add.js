@@ -3,13 +3,13 @@
 //       $scope.messages = { page:"Add Page"}
 //     }]);
 
-
-angular.module('MyApp')
- .controller('AddCtrl',['$scope',function($scope){
-  $scope.header = { message: 'Add Page' };
-}]);
-
-
+//
+// angular.module('MyApp')
+//  .controller('AddCtrl',['$scope',function($scope){
+//   $scope.header = { message: 'Add Page' };
+// }]);
+//
+//
 
 
 
@@ -27,28 +27,28 @@ angular.module('MyApp')
 *
 * */
 angular.module('MyApp')
-    .controller('AddCtrl', function($scope, $alert, Show) {
-        $scope.addShow = function() {
-            Show.save({ showName: $scope.showName }).$promise
-                .then(function() {
-                    $scope.showName = '';
-                    $scope.addForm.$setPristine();
-                    $alert({
-                        content: 'TV show has been added.',
-                        animation: 'fadeZoomFadeDown',
-                        type: 'material',
-                        duration: 3
-                    });
-                })
-                .catch(function(response) {
-                    $scope.showName = '';
-                    $scope.addForm.$setPristine();
-                    $alert({
-                        content: response.data.message,
-                        animation: 'fadeZoomFadeDown',
-                        type: 'material',
-                        duration: 3
-                    });
-                });
-        };
-    });
+  .controller('AddCtrl', ['$scope', '$alert', 'Show', function($scope, $alert, Show) {
+    $scope.addShow = function() {
+      Show.save({ showName: $scope.showName },
+        function() {
+          $scope.showName = '';
+          $scope.addForm.$setPristine();
+          $alert({
+            content: 'TV show has been added.',
+            placement: 'top-right',
+            type: 'success',
+            duration: 3
+          });
+        },
+        function(response) {
+          $scope.showName = '';
+          $scope.addForm.$setPristine();
+          $alert({
+            content: response.data.message,
+            placement: 'top-right',
+            type: 'danger',
+            duration: 3
+          });
+        });
+    };
+  }]);
