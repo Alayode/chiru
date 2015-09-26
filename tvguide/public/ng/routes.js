@@ -17,12 +17,12 @@ sub page vies that we show or hide from the user, as appropriate.
 // a controller to provide context for the template.
 //
 
-angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mgcrea.ngStrap'])
+angular.module('MyApp', ['ngRoute'])
               .config(function($routeProvider) {
                 $routeProvider.when('/',{
                   templateUrl: "layouts/home.html",
                   controller: "MainCtrl"
-                })git 
+                })
                 .when('/login',{
                   templateUrl: "layouts/login.html",
                   controller: "LoginCtrl"
