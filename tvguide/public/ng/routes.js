@@ -22,7 +22,7 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mg
                 $routeProvider.when('/',{
                   templateUrl: "layouts/home.html",
                   controller: "MainCtrl"
-                })
+                })git 
                 .when('/login',{
                   templateUrl: "layouts/login.html",
                   controller: "LoginCtrl"
