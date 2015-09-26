@@ -17,7 +17,7 @@ sub page vies that we show or hide from the user, as appropriate.
 // a controller to provide context for the template.
 //
 
-angular.module('MyApp', ['ngResource','ngRoute'])
+angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mgcrea.ngStrap'])
               .config(function($routeProvider) {
                 $routeProvider.when('/',{
                   templateUrl: "layouts/home.html",
