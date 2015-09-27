@@ -91,6 +91,14 @@ app.get('/api/shows/', function(req, res, next) {
     res.send(shows);
   });
 });
+
+//FIx HTML5 pushState on the client-side issue.
+app.get('*',function(req,res){
+  res.direct('/#'+req.originalUrl);
+});
+
+
+
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.send(500, { message: err.message });
