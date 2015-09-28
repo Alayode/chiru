@@ -2,6 +2,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
+//FOR THE TVDB API THESE MODULES ARE NECESSARY
+
 //Show mongoose schema
 var showSchema = new mongoose.Schema({
   _id: Number,
@@ -77,7 +79,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //search by show title
-app.get('/api/shows/', function(req, res, next) {
+app.get('/api/shows', function(req, res, next) {
   var query = Show.find();
   if (req.query.genre) {
     query.where({ genre: req.query.genre });
@@ -91,6 +93,91 @@ app.get('/api/shows/', function(req, res, next) {
     res.send(shows);
   });
 });
+
+//this route will be use to add a new show to the database we will create a separate route for it.
+app.post('/api/shows',function(req,res,next){
+  var apiKey = 'Please grab new key';
+  var parser = xml2js.Parser({
+    explicitArray: false,
+    normalizeTags: true
+  });
+  var seriesName = req.body.showName
+      .toLowerCase()
+      .replace(/ /g, '_')
+      .replace(/[^\w-]+/g, '');
+
+//using async waterfall  to manage multiple operations
+async.waterfall([
+  function(callback){
+    //Get the Show ID given the Show Name and pass it on to the next function.
+    request.get('http://thetvdb.com/api/GetSeries.php?seriesname=' + seriesName, function error,response, body){
+      if (error) return next (error);
+      parser.parseString(body , function(err,result){
+        if(!result.data.series){
+          return res.send(404,{ message:req.body.showName + 'was not found'});
+        }
+        var seriesId = result.data.seriesid || result.data.series[0].seriesid;
+        callback(err,seriesId);
+      });
+    };
+  },
+  function(seriesId,callback){
+    // Get the show information using the Show ID from previous step and pass the new show object on to the next function.
+    request.get('http://thetvdb.com/api/' + apiKey + '/series/' + seriesId + '/all/en.xml', function(error,response,body){
+      if (error) return next (error);
+      parser.parseString(body.function(err,result){
+        var series = result.data.series;
+        var show = new show ({
+          _id: series.id,
+                       name: series.seriesname,
+                       airsDayOfWeek: series.airs_dayofweek,
+                       airsTime: series.airs_time,
+                       firstAired: series.firstaired,
+                       genre: series.genre.split('|').filter(Boolean),
+                       network: series.network,
+                       overview: series.overview,
+                       rating: series.rating,
+                       ratingCount: series.ratingcount,
+                       runtime: series.runtime,
+                       status: series.status,
+                       poster: series.poster,
+                       episodes: []
+        });
+        _.each(episodes, function (episode) {
+                           show.episodes.push({
+                           season: episode.seasonnumber,
+                           episodeNumber: episode.episodenumber,
+                           episodeName: episode.episodename,
+                           firstAired: episode.firstaired,
+                           overview: episode.overview
+        });
+      });
+      callback(err,show);
+    });
+  });
+}),
+// Convert the poster image to Base64, assign it to show.poster and pass the show object to the final callback function.
+      function(show,callback){
+        var url = 'http://thetvdb.com/banners/'+ poster;
+        request({ url: url, encoding:null } , function(error,response,body){
+          show.poster = 'data:' + response.headers['content-type'] + ';base64' + body.toString('base64');
+          callback(error,show);
+        });
+   }
+],
+function(err,show){
+  if (err) return next (err);
+  show.save(function(err){
+    if(err){
+      if(err.code == 11000){
+        return res.send (409, { message.show.name + 'duplicate show name.'});
+      }
+      return next(err);
+      }
+      res.send(200);
+  });
+});
+}
 
 //FIx HTML5 pushState on the client-side issue.
 app.get('*', function(req, res) {
