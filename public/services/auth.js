@@ -7,9 +7,10 @@ angular.module('MyApp')
     }
 
     // Asynchronously initialize Facebook SDK
+//appId: '624059410963642'
     $window.fbAsyncInit = function() {
       FB.init({
-        appId: '624059410963642',
+        appId: '1638030569798482',
         responseType: 'token',
         version: 'v2.0'
       });
@@ -51,7 +52,7 @@ angular.module('MyApp')
               $rootScope.currentUser = payload.user;
               $location.path('/');
               $alert({
-                title: 'Cheers!',
+                title: 'Facebook!',
                 content: 'You have successfully signed-in with Facebook.',
                 animation: 'fadeZoomFadeDown',
                 type: 'material',
@@ -78,7 +79,7 @@ angular.module('MyApp')
                 $rootScope.currentUser = payload.user;
                 $location.path('/');
                 $alert({
-                  title: 'Cheers!',
+                  title: 'Welcome!',
                   content: 'You have successfully signed-in with Google.',
                   animation: 'fadeZoomFadeDown',
                   type: 'material',
@@ -97,7 +98,7 @@ angular.module('MyApp')
             $rootScope.currentUser = payload.user;
             $location.path('/');
             $alert({
-              title: 'Cheers!',
+              title: 'Welcome!',
               content: 'You have successfully logged in.',
               animation: 'fadeZoomFadeDown',
               type: 'material',
