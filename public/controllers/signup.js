@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('Karaoke')
   .controller('SignupCtrl', function($scope, Auth) {
     $scope.signup = function() {
       Auth.signup({

@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('Karaoke')
   .controller('AddCtrl', function($scope, $alert, Show) {
     $scope.addShow = function() {
       Show.save({ showName: $scope.showName }).$promise

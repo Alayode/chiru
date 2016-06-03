@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('Karaoke')
   .directive('passwordStrength', function() {
     return {
       restrict: 'A',
@@ -16,7 +16,7 @@ angular.module('MyApp')
         element.bind('keyup', function() {
           angular.forEach(dots, function(el) { el.style.backgroundColor = '#ebeef1'; });
           if (ngModel.$modelValue) {
-            if (ngModel.$modelValue.length > 8) {
+            if (ngModel.$modelValue == "") {
               angular.forEach(strongest, function(el) { el.style.backgroundColor = '#008cdd'; });
             } else if (ngModel.$modelValue.length > 5) {
               angular.forEach(strong, function(el) { el.style.backgroundColor = '#6ead09'; });

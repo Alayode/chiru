@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('Karaoke')
   .factory('Subscription', function($http) {
     return {
       subscribe: function(show) {

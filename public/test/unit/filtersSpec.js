@@ -1,5 +1,5 @@
 describe('filters', function() {
-  beforeEach(module('MyApp'));
+  beforeEach(module('Karaoke'));
 
   describe('fromNow', function() {
     it('should display a relative date string', inject(function(fromNowFilter) {

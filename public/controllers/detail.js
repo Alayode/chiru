@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('Karaoke')
   .controller('DetailCtrl', function($scope, $rootScope, $routeParams, Show, Subscription) {
       Show.get({ _id: $routeParams.id }, function(show) {
         $scope.show = show;

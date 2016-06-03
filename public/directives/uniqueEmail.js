@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('Karaoke')
   .directive('uniqueEmail', function($http) {
     return {
       restrict: 'A',
